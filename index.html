@@ -1285,21 +1285,23 @@ const WALIMA_DATE = new Date('2026-09-26T19:30:00');
 // ═══════════════════════════════════════════════════════════
 // INVITEE NAME FROM URL
 // ═══════════════════════════════════════════════════════════
-function getInviteeName() {
-  const path = window.location.pathname;
-  const parts = path.split('/').filter(Boolean);
-  if (parts.length > 0) {
-    return decodeURIComponent(parts[parts.length - 1])
-      .replace(/[-_]/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
-  }
-  // Also check query param ?name=
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('name')) return params.get('name').replace(/\b\w/g, c => c.toUpperCase());
-  return null;
-}
+// function getInviteeName() {
+//   const path = window.location.pathname;
+//   const parts = path.split('/').filter(Boolean);
+//   if (parts.length > 0) {
+//     return decodeURIComponent(parts[parts.length - 1])
+//       .replace(/[-_]/g, ' ')
+//       .replace(/\b\w/g, c => c.toUpperCase());
+//   }
+//   // Also check query param ?name=
+//   const params = new URLSearchParams(window.location.search);
+//   if (params.get('name')) return params.get('name').replace(/\b\w/g, c => c.toUpperCase());
+//   return null;
+// }
+const params = new URLSearchParams(location.search);
+const inviteeName = params.get("inv");
 
-const inviteeName = getInviteeName();
+// const inviteeName = getInviteeName();
 if (inviteeName) {
   document.getElementById('inviteeName').textContent = inviteeName;
   document.getElementById('inviteeName').classList.remove('gold-shimmer');

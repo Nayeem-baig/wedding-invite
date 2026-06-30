@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nayeem weds Sadiya — You're Invited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  /* ─── RESET & BASE ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #0a0a0a;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── COLOR TOKENS ──────────────────────────────────────── */
+  :root {
+    --cream:       #FAF6F0;
+    --gold:        #C9A84C;
+    --gold-light:  #E8D5A3;
+    --maroon:      #6B1A2A;
+    --maroon-deep: #3D0A14;
+    --maroon-mid:  #8B2535;
+    --rose:        #C4596B;
+    --ivory:       #F5EDE0;
+    --charcoal:    #1A0A0E;
+  }
+
+  /* ─── ENVELOPE SCENE ────────────────────────────────────── */
+  #envelope-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #1a0a0e 0%, #0a0005 100%);
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+
+  #envelope-scene.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Stars behind envelope */
+  .env-stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .env-star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  /* Envelope wrapper */
+  #envelope-wrap {
+    position: relative;
+    width: min(420px, 88vw);
+    cursor: pointer;
+    filter: drop-shadow(0 20px 60px rgba(201,168,76,0.25));
+    transform: translateY(0);
+    animation: floatEnv 4s ease-in-out infinite;
+  }
+
+  @keyframes floatEnv {
+    0%,100% { transform: translateY(0px); }
+    50%      { transform: translateY(-12px); }
+  }
+
+  .envelope-body {
+    position: relative;
+    width: 100%;
+    padding-top: 66%;
+    background: linear-gradient(160deg, #FAF6F0 0%, #F0E6D4 100%);
+    border-radius: 4px 4px 8px 8px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+
+  /* Bottom triangle */
+  .env-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(175deg, #EDD9C0 0%, #E8CBA8 100%);
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  }
+
+  /* Side triangles */
+  .env-left, .env-right {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(135deg, #F5EDE0 0%, #EDD9C0 100%);
+  }
+  .env-left  { left:  0; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  .env-right { right: 0; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+
+  /* Flap */
+  .env-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 55%;
+    background: linear-gradient(180deg, #F5EDE0 0%, #EDD9C0 100%);
+    clip-path: polygon(0% 0%, 50% 88%, 100% 0%);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+  }
+
+  #envelope-wrap:hover .env-flap,
+  #envelope-wrap.opening .env-flap {
+    transform: rotateX(-180deg);
+  }
+
+  /* Wax seal */
+  .wax-seal {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 64px; height: 64px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  #envelope-wrap:hover .wax-seal {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .wax-seal svg { width: 100%; height: 100%; }
+
+  /* Islamic geometric pattern on envelope */
+  .env-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z' fill='none' stroke='%236B1A2A' stroke-width='1'/%3E%3Cpath d='M30 10 L50 30 L30 50 L10 30Z' fill='none' stroke='%236B1A2A' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+  }
+
+  /* Hint text */
+  .env-hint {
+    margin-top: 28px;
+    text-align: center;
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    font-style: italic;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 0.6; }
+    50%      { opacity: 1; }
+  }
+
+  /* Letter peeking out of envelope */
+  .env-letter {
+    position: absolute;
+    bottom: 0; left: 10%; right: 10%;
+    height: 70%;
+    background: linear-gradient(180deg, #FFFDF9 0%, #FAF6F0 100%);
+    border-radius: 2px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    transform: translateY(100%);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  #envelope-wrap.opening .env-letter {
+    transform: translateY(10%);
+  }
+
+  .env-letter-inner {
+    text-align: center;
+    padding: 12px;
+  }
+
+  .env-letter-bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: var(--maroon);
+    opacity: 0.7;
+  }
+
+  /* ─── MAIN CONTENT ──────────────────────────────────────── */
+  #main-content {
+    opacity: 0;
+    transition: opacity 1s ease 0.5s;
+    position: relative;
+  }
+
+  #main-content.visible { opacity: 1; }
+
+  /* ─── DYNAMIC BACKGROUND ────────────────────────────────── */
+  #sky-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    transition: none;
+    pointer-events: none;
+  }
+
+  /* ─── FLOATING PARTICLES ────────────────────────────────── */
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.10));
+  }
+
+  @keyframes petalFallSVG {
+    0%   { opacity: 0;   transform: translateY(0)     rotate(0deg)        translateX(0); }
+    8%   { opacity: 0.9; }
+    88%  { opacity: 0.7; }
+    100% { opacity: 0;   transform: translateY(108vh) rotate(var(--spin)) translateX(var(--drift)); }
+  }
+
+  /* ─── STARS ─────────────────────────────────────────────── */
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0%   { opacity: var(--min-op, 0.2); transform: scale(1); }
+    100% { opacity: var(--max-op, 1);   transform: scale(1.3); }
+  }
+
+  /* ─── BISMILLAH HERO ────────────────────────────────────── */
+  #bismillah-section {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .bismillah-text {
+    font-family: 'Amiri', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--gold);
+    margin-bottom: 24px;
+    text-shadow: 0 0 40px rgba(201,168,76,0.4);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .bismillah-text.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .invite-salutation {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+  }
+
+  .invite-salutation.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .invitee-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(201,168,76,0.5);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+    position: relative;
+    display: inline-block;
+  }
+
+  .invitee-name::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .invitee-name.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .invitee-family {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    margin-top: 12px;
+    transition: opacity 1s ease 0.7s;
+  }
+
+  .invitee-family.revealed { opacity: 1; }
+
+  /* ─── NAMES SECTION ─────────────────────────────────────── */
+  #names-section {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .ornamental-divider {
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 20px auto;
+    position: relative;
+  }
+
+  .ornamental-divider::before {
+    content: '✦';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    padding: 0 8px;
+  }
+
+  .couple-names {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  .couple-names.revealed {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .groom-name, .bride-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+  }
+
+  .and-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--gold);
+    display: block;
+    margin: 10px 0;
+  }
+
+  .weds-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    letter-spacing: 0.3em;
+    margin-bottom: 40px;
+    opacity: 0;
+    transition: opacity 1s ease 0.5s;
+  }
+
+  .weds-text.revealed { opacity: 1; }
+
+  /* ─── GEOMETRIC ORNAMENT ────────────────────────────────── */
+  .geo-ornament {
+    width: 120px; height: 120px;
+    margin: 30px auto;
+    opacity: 0;
+    transform: rotate(0deg);
+    transition: opacity 1.5s ease, transform 2s ease;
+    animation-play-state: paused;
+  }
+
+  .geo-ornament.revealed {
+    opacity: 0.6;
+    transform: rotate(45deg);
+    animation: spinSlow 20s linear infinite;
+  }
+
+  @keyframes spinSlow {
+    to { transform: rotate(405deg); }
+  }
+
+  /* ─── NIKAH SECTION ─────────────────────────────────────── */
+  #nikah-section {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  /* ─── WALIMA SECTION ────────────────────────────────────── */
+  #walima-section {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  /* ─── EVENT CARD ────────────────────────────────────────── */
+  .event-card {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 50px 40px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .event-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--gold), transparent, var(--gold));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Inner corner ornaments */
+  .event-card::after {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .event-tag {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 4px 16px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .event-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .event-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+    opacity: 0.7;
+  }
+
+  .event-detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 18px 0;
+    text-align: left;
+  }
+
+  .event-detail-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 24px;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .event-detail-text {
+    flex: 1;
+  }
+
+  .event-detail-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 3px;
+  }
+
+  .event-detail-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* ─── MAP CARD ──────────────────────────────────────────── */
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+
+  .map-btn:hover {
+    background: var(--gold);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  /* ─── CALENDAR BTN ──────────────────────────────────────── */
+  .cal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    margin-left: 8px;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgba(201,168,76,0.4);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+
+  .cal-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  /* ─── COUNTDOWN ─────────────────────────────────────────── */
+  .countdown-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 40px auto;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+  }
+
+  .countdown-wrap.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .countdown-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    opacity: 0.65;
+    text-align: center;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .countdown-unit {
+    text-align: center;
+    padding: 16px 8px;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 6px;
+    background: rgba(201,168,76,0.05);
+    backdrop-filter: blur(4px);
+  }
+
+  .countdown-num {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .countdown-unit-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ─── SECTION LABEL ─────────────────────────────────────── */
+  .section-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-eyebrow::before, .section-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.3;
+  }
+
+  /* ─── CLOSING ────────────────────────────────────────────── */
+  #closing-section {
+    position: relative;
+    z-index: 2;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .closing-dua {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--gold);
+    margin-bottom: 16px;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .closing-dua.revealed { opacity: 1; }
+
+  .closing-dua-translation {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(0.85rem, 2vw, 1.05rem);
+    letter-spacing: 0.08em;
+    opacity: 0;
+    transition: opacity 1.2s ease 0.4s;
+    max-width: 400px;
+    line-height: 1.7;
+  }
+
+  .closing-dua-translation.revealed { opacity: 1; }
+
+  /* ─── SCROLL INDICATOR ──────────────────────────────────── */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 1s ease 1.5s;
+    z-index: 3;
+  }
+
+  .scroll-indicator.revealed { opacity: 0.5; }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%,100% { transform: scaleY(1); opacity: 0.5; }
+    50%      { transform: scaleY(1.2); opacity: 1; }
+  }
+
+  .scroll-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── PARALLAX MOON ─────────────────────────────────────── */
+  #moon {
+    position: fixed;
+    top: 8vh;
+    right: 8vw;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  #sun {
+    position: fixed;
+    top: 8vh;
+    left: 8vw;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  /* ─── ISLAMIC GEO PATTERN OVERLAY ───────────────────────── */
+  .geo-bg-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23C9A84C' stroke-width='0.8'%3E%3Cpolygon points='60,5 115,35 115,85 60,115 5,85 5,35'/%3E%3Cpolygon points='60,20 100,42 100,78 60,100 20,78 20,42'/%3E%3Cline x1='60' y1='5' x2='60' y2='20'/%3E%3Cline x1='115' y1='35' x2='100' y2='42'/%3E%3Cline x1='115' y1='85' x2='100' y2='78'/%3E%3Cline x1='60' y1='115' x2='60' y2='100'/%3E%3Cline x1='5' y1='85' x2='20' y2='78'/%3E%3Cline x1='5' y1='35' x2='20' y2='42'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 120px 120px;
+  }
+
+  /* ─── REVEAL ANIMATION BASE ─────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── NIKAH/WALIMA SPECIFIC COLORS (applied via JS) ────── */
+  /* Day (cream) palette */
+  body.day-mode {
+    --text-primary: #1A0A0E;
+    --text-secondary: #4A2530;
+    --card-bg: rgba(255,253,248,0.85);
+    --ornament-color: var(--maroon);
+  }
+
+  /* Night (maroon) palette */
+  body.night-mode {
+    --text-primary: #FAF6F0;
+    --text-secondary: #E8D5A3;
+    --card-bg: rgba(61,10,20,0.6);
+    --ornament-color: var(--gold);
+  }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .event-card { padding: 36px 24px; }
+    .countdown-grid { gap: 8px; }
+  }
+
+  /* ─── SHIMMER EFFECT ────────────────────────────────────── */
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(90deg, var(--gold) 30%, #FFF5C0 50%, var(--gold) 70%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+
+  /* Writing animation */
+  .write-in {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--gold);
+    width: 0;
+    transition: width 1.5s ease;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .write-in.revealed {
+    width: 100%;
+    border-right-color: transparent;
+  }
+
+  /* Crescent moon SVG */
+  .crescent { display: inline-block; }
+  /* ─── CORNER BOTANICAL BOKEH ────────────────────────────── */
+  .card-corner {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease 0.6s;
+  }
+
+  .event-card.revealed .card-corner { opacity: 1; }
+
+  .card-corner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Position each corner */
+  .card-corner.tl { top: -18px;    left: -18px;  transform: rotate(0deg); }
+  .card-corner.tr { top: -18px;    right: -18px; transform: rotate(90deg); }
+  .card-corner.bl { bottom: -18px; left: -18px;  transform: rotate(270deg); }
+  .card-corner.br { bottom: -18px; right: -18px; transform: rotate(180deg); }
+
+  /* Ensure event-card allows overflow for corners */
+  .event-card { overflow: visible; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ENVELOPE SCENE
+═══════════════════════════════════════════════════════════ -->
+<div id="envelope-scene">
+  <div class="env-stars" id="envStars"></div>
+
+  <div style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+
+    <!-- Bismillah above envelope -->
+    <div style="font-family:'Amiri',serif; color:var(--gold-light); font-size:1.4rem; margin-bottom:32px; opacity:0.85; letter-spacing:0.05em;">
+      بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+    </div>
+
+    <div id="envelope-wrap">
+      <div class="envelope-body">
+        <div class="env-pattern"></div>
+        <div class="env-left"></div>
+        <div class="env-right"></div>
+        <div class="env-bottom"></div>
+        <div class="env-flap"></div>
+
+        <!-- Wax seal -->
+        <div class="wax-seal">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" fill="#6B1A2A" stroke="#C9A84C" stroke-width="1.5"/>
+            <circle cx="32" cy="32" r="24" fill="none" stroke="#C9A84C" stroke-width="0.8" stroke-dasharray="3,3"/>
+            <!-- Crescent -->
+            <path d="M32 18 A14 14 0 1 0 32 46 A10 10 0 1 1 32 18Z" fill="#C9A84C" opacity="0.9"/>
+            <!-- Star -->
+            <polygon points="38,26 39.5,31 44.5,31 40.5,34 42,39 38,36 34,39 35.5,34 31.5,31 36.5,31" fill="#C9A84C" opacity="0.9" transform="scale(0.65) translate(20,14)"/>
+          </svg>
+        </div>
+
+        <!-- Letter peek -->
+        <div class="env-letter">
+          <div class="env-letter-inner">
+            <div class="env-letter-bismillah">بِسْمِ اللَّهِ</div>
+            <div style="font-family:'Cinzel',serif; font-size:0.75rem; color:var(--maroon); letter-spacing:0.2em; margin-top:6px;">NAYEEM WEDS SADIYA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="env-hint">— tap to open your invitation —</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DYNAMIC SKY
+═══════════════════════════════════════════════════════════ -->
+<div id="sky-bg"></div>
+
+<!-- Stars -->
+<div id="starfield"></div>
+
+<!-- Sun -->
+<div id="sun">
+  <svg width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="22" fill="#FFF0A0" opacity="0.9"/>
+    <circle cx="40" cy="40" r="28" fill="none" stroke="#FFF0A0" stroke-width="1" opacity="0.3"/>
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#FFF0A0" stroke-width="0.5" opacity="0.15"/>
+    <g opacity="0.4" stroke="#FFF0A0" stroke-width="1.5" stroke-linecap="round">
+      <line x1="40" y1="4"  x2="40" y2="10"/>
+      <line x1="40" y1="70" x2="40" y2="76"/>
+      <line x1="4"  y1="40" x2="10" y2="40"/>
+      <line x1="70" y1="40" x2="76" y2="40"/>
+      <line x1="13" y1="13" x2="18" y2="18"/>
+      <line x1="62" y1="62" x2="67" y2="67"/>
+      <line x1="67" y1="13" x2="62" y2="18"/>
+      <line x1="18" y1="62" x2="13" y2="67"/>
+    </g>
+  </svg>
+</div>
+
+<!-- Moon -->
+<div id="moon">
+  <svg width="70" height="70" viewBox="0 0 70 70">
+    <path d="M35 8 A27 27 0 1 0 35 62 A19 19 0 1 1 35 8Z" fill="#FFF5C0" opacity="0.85"/>
+    <!-- Stars near moon -->
+    <circle cx="52" cy="18" r="1.5" fill="white" opacity="0.8"/>
+    <circle cx="58" cy="30" r="1"   fill="white" opacity="0.6"/>
+    <circle cx="48" cy="8"  r="1"   fill="white" opacity="0.7"/>
+  </svg>
+</div>
+
+<!-- Particles -->
+<div id="particles"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════════════════ -->
+<div id="main-content">
+
+  <!-- ── BISMILLAH / SALUTATION ── -->
+  <section id="bismillah-section">
+    <div class="geo-bg-overlay"></div>
+
+    <div class="bismillah-text" id="bis1">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+
+    <div style="width:120px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:16px auto;"></div>
+
+    <div class="invite-salutation" id="inv1">With hearts full of joy and gratitude to Allah ﷻ</div>
+    <div class="invite-salutation" id="inv2" style="transition-delay:0.5s;">we joyfully invite</div>
+
+    <div class="invitee-name gold-shimmer" id="inviteeName">Guest</div>
+    <div class="invitee-family reveal" id="familyLine">and your dear family</div>
+
+    <div style="margin-top:50px;">
+      <div class="scroll-indicator revealed" id="scrollHint">
+        <div class="scroll-text">scroll</div>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NAMES ── -->
+  <section id="names-section">
+    <div class="geo-bg-overlay"></div>
+
+    <div class="section-eyebrow reveal" style="width:100%; max-width:400px;">The Union</div>
+
+    <div class="couple-names" id="coupleNames">
+      <div class="groom-name" id="groomName">Nayeem Baig</div>
+      <span class="and-symbol">&</span>
+      <div class="bride-name" id="brideName">Sadiya Fathima</div>
+    </div>
+
+    <div class="ornamental-divider" style="margin:28px auto;"></div>
+
+    <div class="weds-text" id="wedsText">are to be wed</div>
+
+    <!-- Rotating geometric ornament -->
+    <div class="geo-ornament" id="geoOrnament">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <g fill="none" stroke="#C9A84C" stroke-width="0.8">
+          <polygon points="60,4 116,34 116,86 60,116 4,86 4,34"/>
+          <polygon points="60,18 102,42 102,78 60,102 18,78 18,42"/>
+          <polygon points="60,32 88,50 88,70 60,88 32,70 32,50"/>
+          <circle cx="60" cy="60" r="14"/>
+          <line x1="60" y1="4"   x2="60" y2="32"/>
+          <line x1="116" y1="34" x2="102" y2="42"/>
+          <line x1="116" y1="86" x2="102" y2="78"/>
+          <line x1="60" y1="116" x2="60" y2="88"/>
+          <line x1="4" y1="86"  x2="18" y2="78"/>
+          <line x1="4" y1="34"  x2="18" y2="42"/>
+        </g>
+        <circle cx="60" cy="60" r="4" fill="#C9A84C" opacity="0.8"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── NIKAH ── -->
+  <section id="nikah-section">
+    <div class="geo-bg-overlay"></div>
+
+    <div class="section-eyebrow reveal" style="width:100%; max-width:560px; margin-bottom:30px;">The Blessed Ceremony</div>
+
+    <div class="event-card" id="nikahCard">
+
+      <!-- Corner botanical bokeh — 4 unique flowers -->
+      <div class="card-corner tl" id="nikahTL"></div>
+      <div class="card-corner tr" id="nikahTR"></div>
+      <div class="card-corner bl" id="nikahBL"></div>
+      <div class="card-corner br" id="nikahBR"></div>
+
+      <div class="event-tag">Nikah</div>
+      <div class="event-title">The Sacred Union</div>
+      <div class="event-subtitle">Post Aṣr — in the light of day</div>
+
+      <div style="width:60px; height:1px; background:var(--gold); margin:20px auto; opacity:0.5;"></div>
+
+      <div class="event-detail-row">
+        <div class="event-detail-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="event-detail-text">
+          <div class="event-detail-label">Date</div>
+          <div class="event-detail-value">Friday, 25th September 2026</div>
+        </div>
+      </div>
+
+      <div class="event-detail-row">
+        <div class="event-detail-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="event-detail-text">
+          <div class="event-detail-label">Time</div>
+          <div class="event-detail-value">Post Aṣr Prayer &nbsp;·&nbsp; Jamaat 4:15 PM</div>
+        </div>
+      </div>
+
+      <div class="event-detail-row">
+        <div class="event-detail-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="event-detail-text">
+          <div class="event-detail-label">Venue</div>
+          <div class="event-detail-value">Masjid-e-Mohammadi</div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <a class="map-btn" href="https://maps.app.goo.gl/YP9CioGfxizN5G6y6" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Open in Maps
+        </a>
+        <button class="cal-btn" id="addCalNikah" onclick="addToCalendar('nikah')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Add to Calendar
+        </button>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-wrap" id="countdown">
+      <div class="countdown-label">Counting down to the Nikah ✦</div>
+      <div class="countdown-grid">
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-days">--</span>
+          <span class="countdown-unit-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-hours">--</span>
+          <span class="countdown-unit-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-min">--</span>
+          <span class="countdown-unit-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-sec">--</span>
+          <span class="countdown-unit-label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRANSITION VERSE ── -->
+  <section id="transition-section" style="position:relative; z-index:2; min-height:40vh; display:flex; align-items:center; justify-content:center; padding:60px 20px; text-align:center;">
+    <div>
+      <div class="reveal" style="font-family:'Amiri',serif; font-size:clamp(1.3rem,3vw,2rem); margin-bottom:12px; letter-spacing:0.05em;" id="verse1">
+        وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا
+      </div>
+      <div class="reveal" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(0.85rem,2vw,1.1rem); max-width:480px; line-height:1.8; opacity:0.7;" id="verse2">
+        "And of His signs is that He created for you mates from yourselves that you may find tranquility in them."
+        <br><span style="font-size:0.8em; opacity:0.7;">— Al-Qur'an 30:21</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WALIMA ── -->
+  <section id="walima-section">
+    <div class="geo-bg-overlay"></div>
+
+    <div class="section-eyebrow reveal" style="width:100%; max-width:560px; margin-bottom:30px;">The Grand Celebration</div>
+
+    <div class="event-card" id="walimaCard">
+
+      <!-- Corner botanical bokeh — different flowers for night mood -->
+      <div class="card-corner tl" id="walimaTL"></div>
+      <div class="card-corner tr" id="walimaTR"></div>
+      <div class="card-corner bl" id="walimaBL"></div>
+      <div class="card-corner br" id="walimaBR"></div>
+
+      <div class="event-tag">Walima</div>
+      <div class="event-title">The Feast of Joy</div>
+      <div class="event-subtitle">As the stars emerge — into the Arabic night</div>
+
+      <div style="width:60px; height:1px; background:var(--gold); margin:20px auto; opacity:0.5;"></div>
+
+      <div class="event-detail-row">
+        <div class="event-detail-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="event-detail-text">
+          <div class="event-detail-label">Date</div>
+          <div class="event-detail-value">Saturday, 26th September 2026</div>
+        </div>
+      </div>
+
+      <div class="event-detail-row">
+        <div class="event-detail-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="event-detail-text">
+          <div class="event-detail-label">Time</div>
+          <div class="event-detail-value">7:30 PM onwards</div>
+        </div>
+      </div>
+
+      <div class="event-detail-row">
+        <div class="event-detail-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="event-detail-text">
+          <div class="event-detail-label">Venue</div>
+          <div class="event-detail-value">R N Paradise Function Hall</div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <a class="map-btn" href="https://maps.app.goo.gl/7eBV7hqhV3rhXu7M7" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Open in Maps
+        </a>
+        <button class="cal-btn" id="addCalWalima" onclick="addToCalendar('walima')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Add to Calendar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CLOSING DUA ── -->
+  <section id="closing-section">
+    <div class="geo-bg-overlay"></div>
+
+    <!-- Large decorative geometric -->
+    <div style="margin-bottom:40px; opacity:0.12;" class="reveal">
+      <svg width="160" height="160" viewBox="0 0 120 120">
+        <g fill="none" stroke="#C9A84C" stroke-width="0.7">
+          <polygon points="60,4 116,34 116,86 60,116 4,86 4,34"/>
+          <polygon points="60,18 102,42 102,78 60,102 18,78 18,42"/>
+          <circle cx="60" cy="60" r="18"/>
+          <circle cx="60" cy="60" r="8"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="closing-dua" id="closingDua">
+    بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
+    </div>
+
+    <div class="closing-dua-translation" id="closingTrans">
+      "May Allah bless you both, shower His blessings upon you,<br>and unite you in goodness."
+    </div>
+
+    <div style="margin-top:50px;" class="reveal">
+      <div style="font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; opacity:0.4;">
+        Nayeem &nbsp;✦&nbsp; Sadiya
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem; letter-spacing:0.1em; opacity:0.35; margin-top:8px;">
+        25 · 26 September 2026
+      </div>
+    </div>
+  </section>
+
+</div><!-- /main-content -->
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIGURATION
+// ═══════════════════════════════════════════════════════════
+const NIKAH_DATE  = new Date('2026-09-25T16:15:00');
+const WALIMA_DATE = new Date('2026-09-26T19:30:00');
+
+// ═══════════════════════════════════════════════════════════
+// INVITEE NAME FROM URL
+// ═══════════════════════════════════════════════════════════
+function getInviteeName() {
+  const path = window.location.pathname;
+  const parts = path.split('/').filter(Boolean);
+  if (parts.length > 0) {
+    return decodeURIComponent(parts[parts.length - 1])
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+  // Also check query param ?name=
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('name')) return params.get('name').replace(/\b\w/g, c => c.toUpperCase());
+  return null;
+}
+
+const inviteeName = getInviteeName();
+if (inviteeName) {
+  document.getElementById('inviteeName').textContent = inviteeName;
+  document.getElementById('inviteeName').classList.remove('gold-shimmer');
+  document.getElementById('inviteeName').style.cssText = `
+    background: linear-gradient(90deg, #C9A84C 30%, #FFF5C0 50%, #C9A84C 70%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  `;
+  document.getElementById('familyLine').textContent = 'and your dear family';
+} else {
+  document.getElementById('inviteeName').textContent = '';
+  document.getElementById('familyLine').textContent = 'to the blessed union of';
+  document.getElementById('inviteeName').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════════
+// ENVELOPE STARS
+// ═══════════════════════════════════════════════════════════
+const envStars = document.getElementById('envStars');
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement('div');
+  s.className = 'env-star';
+  s.style.cssText = `
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    width:${Math.random()*2+1}px;
+    height:${Math.random()*2+1}px;
+    animation-delay:${Math.random()*4}s;
+    animation-duration:${2+Math.random()*3}s;
+    opacity:${Math.random()*0.5+0.2};
+  `;
+  envStars.appendChild(s);
+}
+
+// ═══════════════════════════════════════════════════════════
+// ENVELOPE OPEN
+// ═══════════════════════════════════════════════════════════
+const envWrap   = document.getElementById('envelope-wrap');
+const envScene  = document.getElementById('envelope-scene');
+const mainCont  = document.getElementById('main-content');
+
+envWrap.addEventListener('click', () => {
+  envWrap.classList.add('opening');
+
+  setTimeout(() => {
+    envScene.classList.add('hidden');
+    mainCont.classList.add('visible');
+    initSky();
+    startParticles();
+    setTimeout(revealBismillah, 400);
+  }, 1200);
+});
+
+// ═══════════════════════════════════════════════════════════
+// SKY TRANSITION ENGINE
+// ═══════════════════════════════════════════════════════════
+// Sky color stops: 0=top of page (cream/day), 1=walima (deep maroon night)
+const skyStops = [
+  { prog: 0.00, top: '#F5EDE0', bot: '#EDD9C0', textPri: '#1A0A0E', textSec: '#4A2530', cardBg: 'rgba(255,253,248,0.88)', ornament: '#6B1A2A' },
+  { prog: 0.35, top: '#F5EDE0', bot: '#EDD9C0', textPri: '#1A0A0E', textSec: '#4A2530', cardBg: 'rgba(255,253,248,0.88)', ornament: '#6B1A2A' },
+  { prog: 0.55, top: '#D4836A', bot: '#A84860', textPri: '#FAF6F0', textSec: '#E8D5A3', cardBg: 'rgba(80,10,25,0.65)', ornament: '#C9A84C' },
+  { prog: 0.70, top: '#7A1525', bot: '#3D0A14', textPri: '#FAF6F0', textSec: '#E8D5A3', cardBg: 'rgba(61,10,20,0.75)', ornament: '#C9A84C' },
+  { prog: 1.00, top: '#3D0A14', bot: '#1A0005', textPri: '#FAF6F0', textSec: '#E8D5A3', cardBg: 'rgba(30,0,10,0.85)', ornament: '#C9A84C' },
+];
+
+function lerpColor(hex1, hex2, t) {
+  const r1 = parseInt(hex1.slice(1,3),16), g1 = parseInt(hex1.slice(3,5),16), b1 = parseInt(hex1.slice(5,7),16);
+  const r2 = parseInt(hex2.slice(1,3),16), g2 = parseInt(hex2.slice(3,5),16), b2 = parseInt(hex2.slice(5,7),16);
+  const r = Math.round(r1+(r2-r1)*t), g = Math.round(g1+(g2-g1)*t), b = Math.round(b1+(b2-b1)*t);
+  return `rgb(${r},${g},${b})`;
+}
+
+function getSkyAt(prog) {
+  for (let i = 0; i < skyStops.length - 1; i++) {
+    const a = skyStops[i], b = skyStops[i+1];
+    if (prog >= a.prog && prog <= b.prog) {
+      const t = (prog - a.prog) / (b.prog - a.prog);
+      return {
+        top:     lerpColor(a.top, b.top, t),
+        bot:     lerpColor(a.bot, b.bot, t),
+        textPri: lerpColor(a.textPri, b.textPri, t),
+        textSec: lerpColor(a.textSec, b.textSec, t),
+        cardBg:  t < 0.5 ? a.cardBg : b.cardBg,
+        starOp:  Math.max(0, (prog - 0.45) * 5),
+        sunOp:   Math.max(0, 1 - prog * 4),
+        moonOp:  Math.max(0, (prog - 0.5) * 4),
+        petalType: prog < 0.5 ? 'jasmine' : 'rose',
+      };
+    }
+  }
+  return getSkyAt(Math.min(prog, 0.999));
+}
+
+const skyBg    = document.getElementById('sky-bg');
+const starfield= document.getElementById('starfield');
+const sunEl    = document.getElementById('sun');
+const moonEl   = document.getElementById('moon');
+
+function initSky() {
+  applySky(0);
+  buildStarfield();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+let lastProg = -1;
+function onScroll() {
+  const scrollTop  = window.scrollY;
+  const maxScroll  = document.body.scrollHeight - window.innerHeight;
+  const prog       = maxScroll > 0 ? scrollTop / maxScroll : 0;
+  if (Math.abs(prog - lastProg) < 0.002) return;
+  lastProg = prog;
+  applySky(prog);
+  checkReveal();
+}
+
+function applySky(prog) {
+  const sky = getSkyAt(prog);
+  skyBg.style.background = `linear-gradient(180deg, ${sky.top} 0%, ${sky.bot} 100%)`;
+
+  // Text color cascade
+  document.querySelectorAll('#main-content').forEach(el => {
+    el.style.color = sky.textPri;
+  });
+
+  // Card bg update
+  document.querySelectorAll('.event-card').forEach(el => {
+    el.style.background = sky.cardBg;
+    el.style.backdropFilter = 'blur(8px)';
+  });
+
+  // Divider ornament color
+  document.querySelectorAll('.ornamental-divider').forEach(el => {
+    el.style.color = sky.ornament;
+  });
+
+  // Stars
+  starfield.style.opacity = sky.starOp;
+
+  // Sun / Moon
+  sunEl.style.opacity  = sky.sunOp;
+  moonEl.style.opacity = sky.moonOp;
+
+  // Countdown text
+  document.querySelectorAll('.countdown-unit').forEach(el => {
+    el.style.borderColor = prog > 0.5 ? 'rgba(201,168,76,0.4)' : 'rgba(107,26,42,0.2)';
+    el.style.background  = prog > 0.5 ? 'rgba(201,168,76,0.06)' : 'rgba(107,26,42,0.05)';
+  });
+
+  // Event tag / cal btn colors
+  document.querySelectorAll('.event-tag').forEach(el => {
+    el.style.color = prog > 0.55 ? '#C9A84C' : '#6B1A2A';
+    el.style.borderColor = prog > 0.55 ? 'rgba(201,168,76,0.5)' : 'rgba(107,26,42,0.4)';
+  });
+
+  document.querySelectorAll('.cal-btn').forEach(el => {
+    el.style.color = prog > 0.55 ? 'rgba(232,213,163,0.8)' : 'rgba(107,26,42,0.7)';
+    el.style.borderColor = prog > 0.55 ? 'rgba(201,168,76,0.3)' : 'rgba(107,26,42,0.2)';
+  });
+
+  document.querySelectorAll('.section-eyebrow').forEach(el => {
+    el.style.color = prog > 0.5 ? 'rgba(232,213,163,0.5)' : 'rgba(107,26,42,0.5)';
+  });
+
+  // Event detail labels
+  document.querySelectorAll('.event-detail-label').forEach(el => {
+    el.style.color = prog > 0.55 ? 'rgba(232,213,163,0.6)' : 'rgba(107,26,42,0.6)';
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// STARFIELD
+// ═══════════════════════════════════════════════════════════
+function buildStarfield() {
+  starfield.innerHTML = '';
+  for (let i = 0; i < 180; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.cssText = `
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      width:${size}px;
+      height:${size}px;
+      --dur:${2+Math.random()*4}s;
+      --min-op:${0.1+Math.random()*0.3};
+      --max-op:${0.6+Math.random()*0.4};
+      animation-delay:${Math.random()*5}s;
+    `;
+    starfield.appendChild(s);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// FLOATING PETALS — SVG botanical, no emojis
+// ═══════════════════════════════════════════════════════════
+
+// Each petal is a tiny inline SVG rendered as an img src via data URI.
+// Jasmine = soft white/cream petals; Rose = deep blush/maroon petals.
+
+function makePetalSVG(type) {
+  const variants = type === 'jasmine' ? jasmineVariants : roseVariants;
+  const v = variants[Math.floor(Math.random() * variants.length)];
+  const encoded = encodeURIComponent(v);
+  return `data:image/svg+xml,${encoded}`;
+}
+
+// ── Jasmine variants (white, 5-petal, delicate) ──────────────
+const jasmineVariants = [
+  // Classic 5-petal jasmine, soft cream
+  `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <g transform="translate(16,16)">
+      ${[0,72,144,216,288].map(a=>`
+        <ellipse rx="5" ry="9" transform="rotate(${a}) translate(0,-7)"
+          fill="url(#jg)" opacity="0.92"/>
+      `).join('')}
+      <radialGradient id="jg" cx="50%" cy="50%">
+        <stop offset="0%" stop-color="#FFFDF8"/>
+        <stop offset="100%" stop-color="#E8D5B0"/>
+      </radialGradient>
+      <circle r="3" fill="#F5E6A0" opacity="0.9"/>
+      <circle r="1.2" fill="#D4B84A" opacity="0.8"/>
+    </g>
+  </svg>`,
+
+  // Smaller 5-petal, slightly translucent
+  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+    <defs>
+      <radialGradient id="jg2" cx="40%" cy="30%">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="100%" stop-color="#DCC8A0" stop-opacity="0.8"/>
+      </radialGradient>
+    </defs>
+    <g transform="translate(14,14)">
+      ${[36,108,180,252,324].map(a=>`
+        <ellipse rx="4" ry="8" transform="rotate(${a}) translate(0,-6)"
+          fill="url(#jg2)" opacity="0.85"/>
+      `).join('')}
+      <circle r="2.5" fill="#F0D875" opacity="0.95"/>
+    </g>
+  </svg>`,
+
+  // Single detached petal — like fallen jasmine
+  `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="30" viewBox="0 0 22 30">
+    <defs>
+      <linearGradient id="jp" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFFEF8"/>
+        <stop offset="100%" stop-color="#D8C4A0" stop-opacity="0.75"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="11" cy="15" rx="7" ry="12" fill="url(#jp)" opacity="0.88"/>
+    <line x1="11" y1="4" x2="11" y2="26" stroke="#C8B485" stroke-width="0.6" opacity="0.4"/>
+  </svg>`,
+];
+
+// ── Rose variants (deep blush, maroon, romantic) ──────────────
+const roseVariants = [
+  // Layered rose petal — curved, deep red
+  `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34">
+    <defs>
+      <linearGradient id="rg1" x1="0%" y1="0%" x2="60%" y2="100%">
+        <stop offset="0%" stop-color="#C4596B"/>
+        <stop offset="60%" stop-color="#8B1A2A"/>
+        <stop offset="100%" stop-color="#5A0D18"/>
+      </linearGradient>
+    </defs>
+    <path d="M15 2 C22 2 28 9 28 17 C28 26 22 32 15 32 C8 32 2 26 2 17 C2 9 8 2 15 2Z"
+      fill="url(#rg1)" opacity="0.82"/>
+    <path d="M15 5 C20 5 24 11 23 18" fill="none" stroke="#FF9EB0" stroke-width="0.8" opacity="0.35"/>
+  </svg>`,
+
+  // Wide curved rose petal
+  `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="26" viewBox="0 0 36 26">
+    <defs>
+      <radialGradient id="rg2" cx="40%" cy="35%">
+        <stop offset="0%" stop-color="#D4596B"/>
+        <stop offset="100%" stop-color="#6B1A2A" stop-opacity="0.9"/>
+      </radialGradient>
+    </defs>
+    <path d="M3 13 C3 5 10 1 18 1 C26 1 33 5 33 13 C33 21 26 25 18 25 C10 25 3 21 3 13Z"
+      fill="url(#rg2)" opacity="0.78"/>
+    <path d="M8 8 C14 4 24 5 30 10" fill="none" stroke="#FFB0B8" stroke-width="0.7" opacity="0.3"/>
+  </svg>`,
+
+  // Slim elongated petal — like outer rose petal
+  `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="38" viewBox="0 0 20 38">
+    <defs>
+      <linearGradient id="rg3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#B84058"/>
+        <stop offset="100%" stop-color="#4A0D1A" stop-opacity="0.85"/>
+      </linearGradient>
+    </defs>
+    <path d="M10 1 C16 8 17 20 14 30 C12 35 8 37 10 37 C12 37 8 35 6 30 C3 20 4 8 10 1Z"
+      fill="url(#rg3)" opacity="0.80"/>
+    <line x1="10" y1="3" x2="10" y2="34" stroke="#FFB0C0" stroke-width="0.6" opacity="0.25"/>
+  </svg>`,
+];
+
+let petalInterval = null;
+let currentPetalType = 'jasmine';
+
+function startParticles() {
+  spawnPetal();
+  petalInterval = setInterval(spawnPetal, 1400);
+}
+
+function spawnPetal() {
+  const particles = document.getElementById('particles');
+  const prog = lastProg < 0 ? 0 : lastProg;
+  const type = prog > 0.5 ? 'rose' : 'jasmine';
+  currentPetalType = type;
+
+  const img = document.createElement('img');
+  img.src = makePetalSVG(type);
+  img.className = 'petal';
+
+  const size = type === 'jasmine'
+    ? 18 + Math.random() * 16   // 18–34px
+    : 22 + Math.random() * 18;  // 22–40px
+
+  const drift = (Math.random() - 0.5) * 120;
+  const spin  = (Math.random() > 0.5 ? 1 : -1) * (200 + Math.random() * 400);
+
+  img.style.cssText = `
+    position: absolute;
+    left: ${Math.random() * 100}%;
+    top: -50px;
+    width: ${size}px;
+    height: auto;
+    opacity: 0;
+    pointer-events: none;
+    animation: petalFallSVG ${10 + Math.random() * 8}s ${Math.random() * 3}s linear forwards;
+    --drift: ${drift}px;
+    --spin: ${spin}deg;
+  `;
+  particles.appendChild(img);
+  setTimeout(() => img.remove(), 22000);
+}
+
+// ═══════════════════════════════════════════════════════════
+// REVEAL ANIMATIONS ON SCROLL
+// ═══════════════════════════════════════════════════════════
+function revealBismillah() {
+  document.getElementById('bis1').classList.add('revealed');
+  setTimeout(() => document.getElementById('inv1').classList.add('revealed'), 400);
+  setTimeout(() => document.getElementById('inv2').classList.add('revealed'), 700);
+  setTimeout(() => {
+    document.getElementById('inviteeName').classList.add('revealed');
+    document.getElementById('inviteeName').style.opacity = '1';
+    document.getElementById('inviteeName').style.transform = 'translateY(0)';
+  }, 1000);
+  setTimeout(() => document.getElementById('familyLine').classList.add('revealed'), 1300);
+  setTimeout(() => document.getElementById('scrollHint').classList.add('revealed'), 1800);
+}
+
+const revealTargets = [
+  'coupleNames', 'wedsText', 'geoOrnament',
+  'nikahCard', 'countdown',
+  'walimaCard',
+  'closingDua', 'closingTrans',
+];
+
+function checkReveal() {
+  const vh = window.innerHeight;
+  document.querySelectorAll('.reveal, #coupleNames, #wedsText, #geoOrnament, #nikahCard, #countdown, #walimaCard, #closingDua, #closingTrans').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh * 0.88) {
+      el.classList.add('revealed');
+    }
+  });
+}
+
+window.addEventListener('scroll', checkReveal, { passive: true });
+
+// ═══════════════════════════════════════════════════════════
+// COUNTDOWN TIMER
+// ═══════════════════════════════════════════════════════════
+function updateCountdown() {
+  const now  = new Date();
+  const diff = NIKAH_DATE - now;
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent  = '0';
+    document.getElementById('cd-hours').textContent = '0';
+    document.getElementById('cd-min').textContent   = '0';
+    document.getElementById('cd-sec').textContent   = '0';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000)  / 60000);
+  const s = Math.floor((diff % 60000)    / 1000);
+  document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-min').textContent   = String(m).padStart(2,'0');
+  document.getElementById('cd-sec').textContent   = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ═══════════════════════════════════════════════════════════
+// ADD TO CALENDAR
+// ═══════════════════════════════════════════════════════════
+function addToCalendar(event) {
+  let title, start, end, location, description;
+
+  if (event === 'nikah') {
+    title       = 'Nayeem weds Sadiya — Nikah';
+    start       = '20260925T161500';
+    end         = '20260925T180000';
+    location    = 'Masjid-e-Mohammadi';
+    description = 'Nikah ceremony of Nayeem Baig and Sadiya Fathima. Post Asr prayer, jamaat at 4:15 PM.';
+  } else {
+    title       = 'Nayeem weds Sadiya — Walima';
+    start       = '20260926T193000';
+    end         = '20260926T230000';
+    location    = 'R N Paradise Function Hall';
+    description = 'Walima celebration of Nayeem Baig and Sadiya Fathima. 7:30 PM onwards.';
+  }
+
+  const gcal = `https://www.google.com/calendar/render?action=TEMPLATE`
+    + `&text=${encodeURIComponent(title)}`
+    + `&dates=${start}/${end}`
+    + `&details=${encodeURIComponent(description)}`
+    + `&location=${encodeURIComponent(location)}`;
+
+  window.open(gcal, '_blank');
+}
+
+// ═══════════════════════════════════════════════════════════
+// CORNER BOTANICAL BOKEH — 4 unique hand-drawn flower SVGs
+// ═══════════════════════════════════════════════════════════
+// Each corner gets a different botanical element.
+// Nikah = cream/blush botanicals (day); Walima = gold/deep rose (night).
+
+function buildCornerBokeh() {
+
+  // ── FOUR BOTANICAL SVG DESIGNS ──────────────────────────
+  // TL: Full peony-style bloom
+  function peony(stroke, fill1, fill2, accent) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+      <defs>
+        <radialGradient id="pg" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="${fill1}" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="${fill2}" stop-opacity="0.6"/>
+        </radialGradient>
+        <filter id="blur1"><feGaussianBlur stdDeviation="2.5"/></filter>
+        <filter id="blur2"><feGaussianBlur stdDeviation="1.2"/></filter>
+      </defs>
+      <!-- Bokeh glow behind -->
+      <circle cx="30" cy="30" r="28" fill="${fill1}" opacity="0.08" filter="url(#blur1)"/>
+      <!-- Leaves -->
+      <ellipse cx="15" cy="55" rx="14" ry="7" fill="#6B8C4A" opacity="0.25" transform="rotate(-35,15,55)"/>
+      <ellipse cx="55" cy="15" rx="14" ry="7" fill="#6B8C4A" opacity="0.2" transform="rotate(55,55,15)"/>
+      <!-- Outer petals -->
+      ${[0,60,120,180,240,300].map(a=>`
+        <ellipse cx="28" cy="28" rx="13" ry="20"
+          transform="rotate(${a},28,28) translate(0,-14)"
+          fill="url(#pg)" opacity="0.55" filter="url(#blur2)"/>
+      `).join('')}
+      <!-- Mid petals -->
+      ${[30,90,150,210,270,330].map(a=>`
+        <ellipse cx="28" cy="28" rx="9" ry="14"
+          transform="rotate(${a},28,28) translate(0,-9)"
+          fill="${fill1}" opacity="0.75"/>
+      `).join('')}
+      <!-- Centre -->
+      <circle cx="28" cy="28" r="7" fill="${accent}" opacity="0.9"/>
+      <circle cx="28" cy="28" r="3.5" fill="${fill1}" opacity="0.95"/>
+      <!-- Stamen dots -->
+      ${[0,45,90,135,180,225,270,315].map(a=>`
+        <circle cx="${28+5.5*Math.cos(a*Math.PI/180)}" cy="${28+5.5*Math.sin(a*Math.PI/180)}" r="1"
+          fill="${accent}" opacity="0.7"/>
+      `).join('')}
+      <!-- Bud + stem top-right -->
+      <path d="M70 10 C72 18 68 26 70 32" stroke="#6B8C4A" stroke-width="1.2" fill="none" opacity="0.3"/>
+      <ellipse cx="70" cy="10" rx="5" ry="8" fill="${fill1}" opacity="0.5"/>
+    </svg>`;
+  }
+
+  // TR: Anemone — delicate with dark centre
+  function anemone(petal, centre, leaf) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+      <defs>
+        <radialGradient id="ag" cx="40%" cy="30%">
+          <stop offset="0%" stop-color="${petal}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="${petal}" stop-opacity="0.45"/>
+        </radialGradient>
+        <filter id="ablur"><feGaussianBlur stdDeviation="1.5"/></filter>
+      </defs>
+      <!-- Bokeh softness -->
+      <circle cx="82" cy="28" r="22" fill="${petal}" opacity="0.06" filter="url(#ablur)"/>
+      <!-- Leaves -->
+      <path d="M82 60 Q96 45 88 30" stroke="${leaf}" stroke-width="1.5" fill="none" opacity="0.25"/>
+      <path d="M82 60 Q70 50 75 35" stroke="${leaf}" stroke-width="1.2" fill="none" opacity="0.2"/>
+      <!-- Petals -->
+      ${[0,51.4,102.8,154.2,205.6,257,308.4].map(a=>`
+        <ellipse cx="82" cy="28" rx="10" ry="17"
+          transform="rotate(${a},82,28) translate(0,-13)"
+          fill="url(#ag)" opacity="0.7"/>
+      `).join('')}
+      <!-- Dark centre ring -->
+      <circle cx="82" cy="28" r="9" fill="${centre}" opacity="0.85"/>
+      <circle cx="82" cy="28" r="5" fill="${centre}" opacity="0.95"/>
+      <!-- White stamen ring -->
+      ${[0,36,72,108,144,180,216,252,288,324].map(a=>`
+        <circle cx="${82+7*Math.cos(a*Math.PI/180)}" cy="${28+7*Math.sin(a*Math.PI/180)}" r="1.2"
+          fill="white" opacity="0.6"/>
+      `).join('')}
+      <circle cx="82" cy="28" r="2.5" fill="white" opacity="0.7"/>
+    </svg>`;
+  }
+
+  // BL: Magnolia branch — loose petals + branch
+  function magnolia(petal, accent, stemCol) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+      <defs>
+        <linearGradient id="mg" x1="0%" y1="0%" x2="80%" y2="100%">
+          <stop offset="0%" stop-color="${petal}"/>
+          <stop offset="100%" stop-color="${accent}" stop-opacity="0.6"/>
+        </linearGradient>
+        <filter id="mblur"><feGaussianBlur stdDeviation="2"/></filter>
+      </defs>
+      <!-- Branch -->
+      <path d="M10 100 C20 80 35 60 50 50 C60 42 75 38 85 25"
+        stroke="${stemCol}" stroke-width="1.8" fill="none" opacity="0.3" stroke-linecap="round"/>
+      <!-- Sub branches -->
+      <path d="M35 68 C28 58 22 55 18 48" stroke="${stemCol}" stroke-width="1.2" fill="none" opacity="0.2"/>
+      <path d="M55 50 C58 40 55 32 58 25" stroke="${stemCol}" stroke-width="1.2" fill="none" opacity="0.2"/>
+      <!-- Bokeh -->
+      <circle cx="20" cy="85" r="18" fill="${petal}" opacity="0.07" filter="url(#mblur)"/>
+      <!-- Bloom 1 at branch top -->
+      ${[0,72,144,216,288].map(a=>`
+        <ellipse cx="55" cy="50" rx="12" ry="18"
+          transform="rotate(${a},55,50) translate(0,-12)"
+          fill="url(#mg)" opacity="0.65"/>
+      `).join('')}
+      <circle cx="55" cy="50" r="5" fill="${accent}" opacity="0.8"/>
+      <!-- Bloom 2 smaller -->
+      ${[0,90,180,270].map(a=>`
+        <ellipse cx="22" cy="55" rx="8" ry="12"
+          transform="rotate(${a+22},22,55) translate(0,-8)"
+          fill="${petal}" opacity="0.55"/>
+      `).join('')}
+      <circle cx="22" cy="55" r="3.5" fill="${accent}" opacity="0.7"/>
+      <!-- Bud on sub-branch -->
+      <ellipse cx="18" cy="46" rx="5" ry="8" fill="${petal}" opacity="0.5" transform="rotate(-15,18,46)"/>
+    </svg>`;
+  }
+
+  // BR: Wild rose — open bloom with visible stamens
+  function wildRose(outer, inner, stamen, leafCol) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110">
+      <defs>
+        <radialGradient id="wrg" cx="50%" cy="40%">
+          <stop offset="0%" stop-color="${inner}"/>
+          <stop offset="100%" stop-color="${outer}" stop-opacity="0.7"/>
+        </radialGradient>
+        <filter id="wrblur"><feGaussianBlur stdDeviation="1.8"/></filter>
+      </defs>
+      <!-- Bokeh -->
+      <circle cx="80" cy="80" r="24" fill="${outer}" opacity="0.07" filter="url(#wrblur)"/>
+      <!-- Leaves -->
+      <ellipse cx="55" cy="95" rx="18" ry="8" fill="${leafCol}" opacity="0.22" transform="rotate(20,55,95)"/>
+      <ellipse cx="95" cy="55" rx="18" ry="8" fill="${leafCol}" opacity="0.18" transform="rotate(70,95,55)"/>
+      <!-- Outer petals (5) -->
+      ${[0,72,144,216,288].map(a=>`
+        <ellipse cx="80" cy="80" rx="14" ry="22"
+          transform="rotate(${a},80,80) translate(0,-16)"
+          fill="url(#wrg)" opacity="0.6"/>
+      `).join('')}
+      <!-- Inner petals (5) -->
+      ${[36,108,180,252,324].map(a=>`
+        <ellipse cx="80" cy="80" rx="10" ry="16"
+          transform="rotate(${a},80,80) translate(0,-11)"
+          fill="${inner}" opacity="0.72"/>
+      `).join('')}
+      <!-- Stamen ring -->
+      ${[0,30,60,90,120,150,180,210,240,270,300,330].map(a=>`
+        <line x1="${80+7*Math.cos(a*Math.PI/180)}" y1="${80+7*Math.sin(a*Math.PI/180)}"
+              x2="${80+11*Math.cos(a*Math.PI/180)}" y2="${80+11*Math.sin(a*Math.PI/180)}"
+              stroke="${stamen}" stroke-width="1" opacity="0.7" stroke-linecap="round"/>
+        <circle cx="${80+11.5*Math.cos(a*Math.PI/180)}" cy="${80+11.5*Math.sin(a*Math.PI/180)}" r="1.3"
+          fill="${stamen}" opacity="0.8"/>
+      `).join('')}
+      <!-- Centre -->
+      <circle cx="80" cy="80" r="7" fill="${stamen}" opacity="0.9"/>
+      <circle cx="80" cy="80" r="3.5" fill="${inner}" opacity="0.95"/>
+    </svg>`;
+  }
+
+  // ── NIKAH CARD corners (day — cream, blush, soft) ─────────
+  const nikahCorners = {
+    tl: peony('#C9A84C', '#FDF0E8', '#D4A0A0', '#C9A84C'),
+    tr: anemone('#E8C4C4', '#6B1A2A', '#5A7A3A'),
+    bl: magnolia('#FAE8E0', '#D4A0A0', '#7A5A3A'),
+    br: wildRose('#D4B0A0', '#F5E0D8', '#C9A84C', '#5A7A3A'),
+  };
+
+  // ── WALIMA CARD corners (night — deep rose, gold, rich) ───
+  const walimaCorners = {
+    tl: peony('#C9A84C', '#8B2535', '#5A0D18', '#E8D5A3'),
+    tr: anemone('#C4596B', '#1A0A0E', '#3A5A2A'),
+    bl: magnolia('#8B2535', '#C4596B', '#5A4A2A'),
+    br: wildRose('#8B1A2A', '#C4596B', '#E8D5A3', '#3A5A2A'),
+  };
+
+  function setCorner(id, svg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = svg;
+  }
+
+  setCorner('nikahTL', nikahCorners.tl);
+  setCorner('nikahTR', nikahCorners.tr);
+  setCorner('nikahBL', nikahCorners.bl);
+  setCorner('nikahBR', nikahCorners.br);
+
+  setCorner('walimaTL', walimaCorners.tl);
+  setCorner('walimaTR', walimaCorners.tr);
+  setCorner('walimaBL', walimaCorners.bl);
+  setCorner('walimaBR', walimaCorners.br);
+}
+
+// Run on load
+buildCornerBokeh();
+// Set initial cream bg so flash doesn't occur on reveal
+skyBg.style.background = `linear-gradient(180deg, #F5EDE0 0%, #EDD9C0 100%)`;
+document.getElementById('main-content').style.color = '#1A0A0E';
+</script>
+</body>
+</html>

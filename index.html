@@ -915,6 +915,8 @@
 
   /* Ensure event-card allows overflow for corners */
   .event-card { overflow: visible; }
+#nikahCard{background:#FFFDF8E0!important;backdrop-filter:blur(8px);}
+#walimaCard{background:#3D0A14BF!important;color:#FAF6F0;backdrop-filter:blur(8px);}
 
 </style>
 </head>
@@ -1029,8 +1031,7 @@
 
     <div style="margin-top:50px;">
       <div class="scroll-indicator revealed" id="scrollHint">
-        <div class="scroll-text">scroll</div>
-        <div class="scroll-line"></div>
+        <img id="flowerScroll" class="flower-scroll" src="flower-bokeh.png" alt="">
       </div>
     </div>
   </section>
@@ -1438,7 +1439,7 @@ function applySky(prog) {
 
   // Card bg update
   document.querySelectorAll('.event-card').forEach(el => {
-    el.style.background = sky.cardBg;
+    if(el.id!=='nikahCard'&&el.id!=='walimaCard'){el.style.background=sky.cardBg;}
     el.style.backdropFilter = 'blur(8px)';
   });
 
@@ -1939,6 +1940,8 @@ buildCornerBokeh();
 // Set initial cream bg so flash doesn't occur on reveal
 skyBg.style.background = `linear-gradient(180deg, #F5EDE0 0%, #EDD9C0 100%)`;
 document.getElementById('main-content').style.color = '#1A0A0E';
+
+const flower=document.getElementById('flowerScroll');const union=document.getElementById('names-section');window.addEventListener('scroll',()=>{if(!flower||!union)return;const p=Math.min(window.scrollY/union.offsetTop,1);flower.style.transform=`translate(-50%, ${p*360}px) scale(${1-p*0.15})`;flower.style.opacity=1-p;});
 </script>
 </body>
 </html>

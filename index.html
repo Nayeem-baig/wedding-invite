@@ -1081,6 +1081,37 @@
       color: #FAF6F0;
       backdrop-filter: blur(8px);
     }
+    html,
+body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+#envelope-scene{
+    overflow:hidden;
+    padding:20px;
+}
+
+#envelope-wrap{
+    width:min(420px,90vw);
+    max-width:420px;
+    margin:auto;
+    animation:none;
+}
+
+.envelope-body{
+    width:100%;
+}
+
+.env-hint{
+    max-width:90vw;
+    text-align:center;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
   </style>
 </head>
 
@@ -1494,7 +1525,12 @@
     //   return null;
     // }
     const params = new URLSearchParams(location.search);
-    const inviteeName = params.get("inv");
+     inviteeName = parconstams.get("inv");
+    if (inviteeName) {
+    inviteeName = decodeURIComponent(inviteeName)
+        .replace(/_/g, " ")
+        .trim();
+    }
 
     // const inviteeName = getInviteeName();
     if (inviteeName) {

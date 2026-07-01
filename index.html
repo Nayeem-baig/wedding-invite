@@ -1525,7 +1525,7 @@ img{
     //   return null;
     // }
     const params = new URLSearchParams(location.search);
-     inviteeName = parconstams.get("inv");
+    let inviteeName = parconstams.get("inv");
     if (inviteeName) {
     inviteeName = decodeURIComponent(inviteeName)
         .replace(/_/g, " ")
@@ -1533,8 +1533,8 @@ img{
     }
 
     // const inviteeName = getInviteeName();
-    if (inviteeName) {
-      document.getElementById('inviteeName').textContent = inviteeName;
+    
+      document.getElementById('inviteeName').textContent = inviteeName || "You" ;
       document.getElementById('inviteeName').classList.remove('gold-shimmer');
       document.getElementById('inviteeName').style.cssText = `
     background: linear-gradient(90deg, #C9A84C 30%, #FFF5C0 50%, #C9A84C 70%);
@@ -1545,11 +1545,7 @@ img{
     animation: shimmer 4s linear infinite;
   `;
       document.getElementById('familyLine').textContent = 'and your dear family';
-    } else {
-      document.getElementById('inviteeName').textContent = '';
-      document.getElementById('familyLine').textContent = 'to the blessed union of';
-      document.getElementById('inviteeName').style.display = 'none';
-    }
+    
 
     // ═══════════════════════════════════════════════════════════
     // ENVELOPE STARS

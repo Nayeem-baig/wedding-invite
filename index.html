@@ -1696,6 +1696,14 @@
       }
     }
 
+    window.addEventListener('beforeunload', () => {
+      try {
+        localStorage.removeItem(firstOpenGuideKey);
+      } catch (error) {
+        // Ignore storage failures during unload.
+      }
+    });
+
     function waitForGuide(ms) {
       return new Promise(resolve => {
         autoGuideTimeout = setTimeout(() => {

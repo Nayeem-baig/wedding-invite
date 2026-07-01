@@ -1500,7 +1500,9 @@ img{
     </section>
 
   </div><!-- /main-content -->
-
+ <audio id="bgNasheed" preload="auto">
+    <source src="nasheed.mp3" type="audio/mpeg">
+  </audio>
   <script>
     // ═══════════════════════════════════════════════════════════
     // CONFIGURATION
@@ -2177,9 +2179,6 @@ envWrap.addEventListener('click', () => {
 
     const flower = document.getElementById('flowerScroll'); const union = document.getElementById('names-section'); window.addEventListener('scroll', () => { if (!flower || !union) return; const p = Math.min(window.scrollY / union.offsetTop, 1); flower.style.transform = `translate(-50%, ${p * 360}px) scale(${1 - p * 0.15})`; flower.style.opacity = 1 - p; });
   </script>
-  <audio id="bgNasheed" preload="auto">
-    <source src="nasheed.mp3" type="audio/mpeg">
-  </audio>
 </body>
 
 </html>

@@ -1570,21 +1570,35 @@ img{
     // ENVELOPE OPEN
     // ═══════════════════════════════════════════════════════════
     const envWrap = document.getElementById('envelope-wrap');
-    const envScene = document.getElementById('envelope-scene');
-    const mainCont = document.getElementById('main-content');
+const envScene = document.getElementById('envelope-scene');
+const mainCont = document.getElementById('main-content');
+const nasheed = document.getElementById('bgNasheed');
 
-    envWrap.addEventListener('click', () => {
-      envWrap.classList.add('opening');
+envWrap.addEventListener('click', () => {
 
-      setTimeout(() => {
+    nasheed.volume = 0;
+    nasheed.play().catch(() => {});
+
+    // Fade in over 3 seconds
+    const fade = setInterval(() => {
+        if (nasheed.volume < 0.95) {
+            nasheed.volume += 0.05;
+        } else {
+            nasheed.volume = 1;
+            clearInterval(fade);
+        }
+    }, 150);
+
+    envWrap.classList.add('opening');
+
+    setTimeout(() => {
         envScene.classList.add('hidden');
         mainCont.classList.add('visible');
         initSky();
         startParticles();
         setTimeout(revealBismillah, 400);
-      }, 1200);
-    });
-
+    }, 1200);
+});
     // ═══════════════════════════════════════════════════════════
     // SKY TRANSITION ENGINE
     // ═══════════════════════════════════════════════════════════
@@ -2163,6 +2177,9 @@ img{
 
     const flower = document.getElementById('flowerScroll'); const union = document.getElementById('names-section'); window.addEventListener('scroll', () => { if (!flower || !union) return; const p = Math.min(window.scrollY / union.offsetTop, 1); flower.style.transform = `translate(-50%, ${p * 360}px) scale(${1 - p * 0.15})`; flower.style.opacity = 1 - p; });
   </script>
+  <audio id="bgNasheed" preload="auto">
+    <source src="nasheed.mp3" type="audio/mpeg">
+  </audio>
 </body>
 
 </html>

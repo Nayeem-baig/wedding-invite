@@ -504,37 +504,35 @@
     }
 
     /* ─── GEOMETRIC ORNAMENT ────────────────────────────────── */
+    #names-section {
+      position: relative;
+    }
+
     .geo-ornament {
-      width: 120px;
-      height: 120px;
-      margin: 30px auto;
-      opacity: 0;
-      transform: rotate(0deg);
-      transition: opacity 1.5s ease, transform 2s ease;
-      animation-play-state: paused;
-    }
-
-    .geo-ornamentt {
-      width: 120px;
-      height: 120px;
-      margin: 30px auto;
-      opacity: 0;
-      transform: rotate(0deg);
-      transition: opacity 1.5s ease, transform 2s ease;
-      animation-play-state: paused;
-    }
-
-    .geo-ornament.revealed {
+      position: absolute;
+      left: 50%;
+      top: 65%;
+      transform: translateX(-50%);
+      width: 220px;
+      z-index: 1;
       opacity: 0.6;
-      transform: rotate(45deg);
-      animation: spinSlow 20s linear infinite;
+      pointer-events: none;
+      /* transition: transform .15s linear; */
     }
 
-    /* @keyframes spinSlow {
-      to {
-        transform: rotate(405deg);
-      }
-    } */
+    .opa {
+      opacity: 0.6;
+    }
+
+    #nikah-section {
+      position: relative;
+      z-index: 2;
+    }
+
+    #nikahCard {
+      position: relative;
+      z-index: 5;
+    }
 
     /* ─── NIKAH SECTION ─────────────────────────────────────── */
     #nikah-section {
@@ -1081,37 +1079,38 @@
       color: #FAF6F0;
       backdrop-filter: blur(8px);
     }
+
     html,
-body{
-    width:100%;
-    overflow-x:hidden;
-}
+    body {
+      width: 100%;
+      overflow-x: hidden;
+    }
 
-#envelope-scene{
-    overflow:hidden;
-    padding:20px;
-}
+    #envelope-scene {
+      overflow: hidden;
+      padding: 20px;
+    }
 
-#envelope-wrap{
-    width:min(420px,90vw);
-    max-width:420px;
-    margin:auto;
-    animation:none;
-}
+    #envelope-wrap {
+      width: min(420px, 90vw);
+      max-width: 420px;
+      margin: auto;
+      animation: none;
+    }
 
-.envelope-body{
-    width:100%;
-}
+    .envelope-body {
+      width: 100%;
+    }
 
-.env-hint{
-    max-width:90vw;
-    text-align:center;
-}
+    .env-hint {
+      max-width: 90vw;
+      text-align: center;
+    }
 
-img{
-    max-width:100%;
-    height:auto;
-}
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
 
@@ -1477,7 +1476,7 @@ img{
       <div class="geo-bg-overlay"></div>
 
       <!-- Large decorative geometric -->
-      <img src="flower-bokeh2.png" class="union-flower" alt="">
+      <img src="flower-bokeh2.png" class="opa union-flower" alt="">
 
       <div class="closing-dua" id="closingDua">
         بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
@@ -1500,7 +1499,7 @@ img{
     </section>
 
   </div><!-- /main-content -->
- <audio id="bgNasheed" preload="auto">
+  <audio id="bgNasheed" preload="auto">
     <source src="nasheed.mp3" type="audio/mpeg">
   </audio>
   <script>
@@ -1529,16 +1528,16 @@ img{
     const params = new URLSearchParams(location.search);
     let inviteeName = params.get("inv");
     if (inviteeName) {
-    inviteeName = decodeURIComponent(inviteeName)
+      inviteeName = decodeURIComponent(inviteeName)
         .replace(/_/g, " ")
         .trim();
     }
 
     // const inviteeName = getInviteeName();
-    
-      document.getElementById('inviteeName').textContent = inviteeName || "You" ;
-      document.getElementById('inviteeName').classList.remove('gold-shimmer');
-      document.getElementById('inviteeName').style.cssText = `
+
+    document.getElementById('inviteeName').textContent = inviteeName || "You";
+    document.getElementById('inviteeName').classList.remove('gold-shimmer');
+    document.getElementById('inviteeName').style.cssText = `
     background: linear-gradient(90deg, #C9A84C 30%, #FFF5C0 50%, #C9A84C 70%);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -1546,8 +1545,8 @@ img{
     background-clip: text;
     animation: shimmer 4s linear infinite;
   `;
-      document.getElementById('familyLine').textContent = 'and your dear family';
-    
+    document.getElementById('familyLine').textContent = 'and your dear family';
+
 
     // ═══════════════════════════════════════════════════════════
     // ENVELOPE STARS
@@ -1572,35 +1571,35 @@ img{
     // ENVELOPE OPEN
     // ═══════════════════════════════════════════════════════════
     const envWrap = document.getElementById('envelope-wrap');
-const envScene = document.getElementById('envelope-scene');
-const mainCont = document.getElementById('main-content');
-const nasheed = document.getElementById('bgNasheed');
+    const envScene = document.getElementById('envelope-scene');
+    const mainCont = document.getElementById('main-content');
+    const nasheed = document.getElementById('bgNasheed');
 
-envWrap.addEventListener('click', () => {
+    envWrap.addEventListener('click', () => {
 
-    nasheed.volume = 0;
-    nasheed.play().catch(() => {});
+      nasheed.volume = 0;
+      nasheed.play().catch(() => { });
 
-    // Fade in over 3 seconds
-    const fade = setInterval(() => {
+      // Fade in over 3 seconds
+      const fade = setInterval(() => {
         if (nasheed.volume < 0.95) {
-            nasheed.volume += 0.05;
+          nasheed.volume += 0.05;
         } else {
-            nasheed.volume = 1;
-            clearInterval(fade);
+          nasheed.volume = 1;
+          clearInterval(fade);
         }
-    }, 150);
+      }, 150);
 
-    envWrap.classList.add('opening');
+      envWrap.classList.add('opening');
 
-    setTimeout(() => {
+      setTimeout(() => {
         envScene.classList.add('hidden');
         mainCont.classList.add('visible');
         initSky();
         startParticles();
         setTimeout(revealBismillah, 400);
-    }, 1200);
-});
+      }, 1200);
+    });
     // ═══════════════════════════════════════════════════════════
     // SKY TRANSITION ENGINE
     // ═══════════════════════════════════════════════════════════
@@ -1740,6 +1739,37 @@ envWrap.addEventListener('click', () => {
         starfield.appendChild(s);
       }
     }
+
+    const flower2 = document.getElementById("geoOrnament");
+    const names = document.getElementById("names-section");
+    const nikah = document.getElementById("nikahCard");
+
+    let stopped = false;
+
+    window.addEventListener("scroll", () => {
+
+      if (stopped) return;
+
+      const namesRect = names.getBoundingClientRect();
+      const nikahRect = nikah.getBoundingClientRect();
+
+      // Start moving only after the names section starts leaving the viewport
+      let move = Math.max(0, -namesRect.top);
+
+      // Control movement speed
+      move *= 0.45;
+
+      // Apply movement
+      flower2.style.transform = `translate(-50%, ${move}px)`;
+
+      // Stop when flower is 30% behind the Nikah card
+      const flowerRect = flower2.getBoundingClientRect();
+
+      if (flowerRect.bottom >= nikahRect.top + flowerRect.height * 0.3) {
+        stopped = true;
+      }
+
+    });
 
     // ═══════════════════════════════════════════════════════════
     // FLOATING PETALS — SVG botanical, no emojis

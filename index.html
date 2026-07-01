@@ -1525,7 +1525,7 @@ img{
     //   return null;
     // }
     const params = new URLSearchParams(location.search);
-    let inviteeName = parconstams.get("inv");
+    let inviteeName = params.get("inv");
     if (inviteeName) {
     inviteeName = decodeURIComponent(inviteeName)
         .replace(/_/g, " ")

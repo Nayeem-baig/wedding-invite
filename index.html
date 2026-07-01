@@ -34,7 +34,6 @@
       font-family: 'Lato', sans-serif;
       background: #0a0a0a;
       overflow-x: hidden;
-      overscroll-behavior-y: none;
       cursor: default;
     }
 
@@ -171,17 +170,18 @@
     /* Wax seal */
     .wax-seal {
       position: absolute;
-      top: 38%;
+      top: 48%;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 3;
-      width: 64px;
-      height: 64px;
+      width: 180px;
+      height: 180px;
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
     #envelope-wrap:hover .wax-seal {
       transform: translate(-50%, -50%) scale(1.08);
+      opacity: 0.2;
     }
 
     .wax-seal svg {
@@ -513,7 +513,7 @@
       position: absolute;
       left: 50%;
       top: 65%;
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
       width: 220px;
       z-index: 1;
       opacity: 0.6;
@@ -871,7 +871,7 @@
 
     .flower-scroll {
       display: block;
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
       position: relative;
       left: 50%;
       will-change: transform, opacity;
@@ -1145,15 +1145,7 @@
 
           <!-- Wax seal -->
           <div class="wax-seal">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="30" fill="#6B1A2A" stroke="#C9A84C" stroke-width="1.5" />
-              <circle cx="32" cy="32" r="24" fill="none" stroke="#C9A84C" stroke-width="0.8" stroke-dasharray="3,3" />
-              <!-- Crescent -->
-              <path d="M32 18 A14 14 0 1 0 32 46 A10 10 0 1 1 32 18Z" fill="#C9A84C" opacity="0.9" />
-              <!-- Star -->
-              <polygon points="38,26 39.5,31 44.5,31 40.5,34 42,39 38,36 34,39 35.5,34 31.5,31 36.5,31" fill="#C9A84C"
-                opacity="0.9" transform="scale(0.65) translate(20,14)" />
-            </svg>
+            <img src="wax-seal.png" alt="Wax Seal" />
           </div>
 
           <!-- Letter peek -->
@@ -1582,12 +1574,6 @@
   `;
       envStars.appendChild(s);
     }
-    setTimeout(() => {
-      window.scrollBy({
-        top: 60,
-        behavior: "smooth"
-      });
-    }, 2000);
     // ═══════════════════════════════════════════════════════════
     // ENVELOPE OPEN
     // ═══════════════════════════════════════════════════════════
@@ -1665,46 +1651,43 @@
     const starfield = document.getElementById('starfield');
     const sunEl = document.getElementById('sun');
     const moonEl = document.getElementById('moon');
+    const mainContentEls = document.querySelectorAll('#main-content');
+    const eventCards = document.querySelectorAll('.event-card');
+    const dividerEls = document.querySelectorAll('.ornamental-divider');
+    const countdownUnits = document.querySelectorAll('.countdown-unit');
+    const eventTags = document.querySelectorAll('.event-tag');
+    const calBtns = document.querySelectorAll('.cal-btn');
+    const sectionEyebrows = document.querySelectorAll('.section-eyebrow');
+    const eventDetailLabels = document.querySelectorAll('.event-detail-label');
 
     function initSky() {
       applySky(0);
       buildStarfield();
-      targetScrollY = window.scrollY;
-      smoothScrollY = targetScrollY;
+      initRevealObserver();
+      updateFlowerMetrics();
       window.addEventListener('scroll', requestScrollEffects, { passive: true });
-      window.addEventListener('resize', requestScrollEffects, { passive: true });
+      window.addEventListener('resize', handleScrollResize, { passive: true });
       requestScrollEffects();
     }
 
     let lastProg = -1;
-    let targetScrollY = 0;
-    let smoothScrollY = 0;
-    let scrollEffectsRunning = false;
-    const scrollEase = 0.11;
+    let scrollEffectsPending = false;
 
     function requestScrollEffects() {
-      targetScrollY = window.scrollY;
-      if (!scrollEffectsRunning) {
-        scrollEffectsRunning = true;
+      if (!scrollEffectsPending) {
+        scrollEffectsPending = true;
         requestAnimationFrame(runScrollEffects);
       }
     }
 
+    function handleScrollResize() {
+      updateFlowerMetrics();
+      requestScrollEffects();
+    }
+
     function runScrollEffects() {
-      targetScrollY = window.scrollY;
-      smoothScrollY += (targetScrollY - smoothScrollY) * scrollEase;
-
-      if (Math.abs(targetScrollY - smoothScrollY) < 0.5) {
-        smoothScrollY = targetScrollY;
-      }
-
-      updateScrollEffects(smoothScrollY);
-
-      if (smoothScrollY !== targetScrollY) {
-        requestAnimationFrame(runScrollEffects);
-      } else {
-        scrollEffectsRunning = false;
-      }
+      scrollEffectsPending = false;
+      updateScrollEffects(window.scrollY);
     }
 
     function updateScrollEffects(scrollTop) {
@@ -1712,7 +1695,6 @@
       const prog = maxScroll > 0 ? scrollTop / maxScroll : 0;
       updateFlowerScroll(scrollTop);
       updateGeoFlower(scrollTop);
-      checkReveal();
       if (Math.abs(prog - lastProg) < 0.002) return;
       lastProg = prog;
       applySky(prog);
@@ -1723,18 +1705,17 @@
       skyBg.style.background = `linear-gradient(180deg, ${sky.top} 0%, ${sky.bot} 100%)`;
 
       // Text color cascade
-      document.querySelectorAll('#main-content').forEach(el => {
+      mainContentEls.forEach(el => {
         el.style.color = sky.textPri;
       });
 
       // Card bg update
-      document.querySelectorAll('.event-card').forEach(el => {
+      eventCards.forEach(el => {
         if (el.id !== 'nikahCard' && el.id !== 'walimaCard') { el.style.background = sky.cardBg; }
-        el.style.backdropFilter = 'blur(8px)';
       });
 
       // Divider ornament color
-      document.querySelectorAll('.ornamental-divider').forEach(el => {
+      dividerEls.forEach(el => {
         el.style.color = sky.ornament;
       });
 
@@ -1746,28 +1727,28 @@
       moonEl.style.opacity = sky.moonOp;
 
       // Countdown text
-      document.querySelectorAll('.countdown-unit').forEach(el => {
+      countdownUnits.forEach(el => {
         el.style.borderColor = prog > 0.5 ? 'rgba(201,168,76,0.4)' : 'rgba(107,26,42,0.2)';
         el.style.background = prog > 0.5 ? 'rgba(201,168,76,0.06)' : 'rgba(107,26,42,0.05)';
       });
 
       // Event tag / cal btn colors
-      document.querySelectorAll('.event-tag').forEach(el => {
+      eventTags.forEach(el => {
         el.style.color = prog > 0.55 ? '#C9A84C' : '#6B1A2A';
         el.style.borderColor = prog > 0.55 ? 'rgba(201,168,76,0.5)' : 'rgba(107,26,42,0.4)';
       });
 
-      document.querySelectorAll('.cal-btn').forEach(el => {
+      calBtns.forEach(el => {
         el.style.color = prog > 0.55 ? 'rgba(232,213,163,0.8)' : 'rgba(107,26,42,0.7)';
         el.style.borderColor = prog > 0.55 ? 'rgba(201,168,76,0.3)' : 'rgba(107,26,42,0.2)';
       });
 
-      document.querySelectorAll('.section-eyebrow').forEach(el => {
+      sectionEyebrows.forEach(el => {
         el.style.color = prog > 0.5 ? 'rgba(232,213,163,0.5)' : 'rgba(107,26,42,0.5)';
       });
 
       // Event detail labels
-      document.querySelectorAll('.event-detail-label').forEach(el => {
+      eventDetailLabels.forEach(el => {
         el.style.color = prog > 0.55 ? 'rgba(232,213,163,0.6)' : 'rgba(107,26,42,0.6)';
       });
     }
@@ -1777,7 +1758,8 @@
     // ═══════════════════════════════════════════════════════════
     function buildStarfield() {
       starfield.innerHTML = '';
-      for (let i = 0; i < 180; i++) {
+      const starCount = window.innerWidth < 700 ? 80 : 180;
+      for (let i = 0; i < starCount; i++) {
         const s = document.createElement('div');
         s.className = 'star';
         const size = Math.random() * 2 + 0.5;
@@ -1799,33 +1781,27 @@
     const names = document.getElementById("names-section");
     const nikah = document.getElementById("nikahCard");
 
-    let stopped = false;
-    let stoppedGeoMove = 0;
+    let geoStopped = false;
+    let geoStoppedMove = 0;
 
     function updateGeoFlower(scrollTop) {
       if (!flower2 || !names || !nikah) return;
 
-      // Start moving only after the names section starts leaving the viewport
-      let move = Math.max(0, scrollTop - names.offsetTop);
-
-      // Control movement speed
-      move *= 0.45;
-
-      if (stopped) {
-        flower2.style.transform = `translate(-50%, ${stoppedGeoMove}px)`;
+      if (geoStopped) {
+        flower2.style.transform = `translate3d(-50%, ${geoStoppedMove}px, 0)`;
         return;
       }
 
-      // Apply movement
-      flower2.style.transform = `translate(-50%, ${move}px)`;
-
-      // Stop when flower is 30% behind the Nikah card
+      const namesRect = names.getBoundingClientRect();
       const nikahRect = nikah.getBoundingClientRect();
-      const flowerRect = flower2.getBoundingClientRect();
+      let move = Math.max(0, -namesRect.top) * 0.45;
 
+      flower2.style.transform = `translate3d(-50%, ${move}px, 0)`;
+
+      const flowerRect = flower2.getBoundingClientRect();
       if (flowerRect.bottom >= nikahRect.top + flowerRect.height * 0.3) {
-        stopped = true;
-        stoppedGeoMove = move;
+        geoStopped = true;
+        geoStoppedMove = move;
       }
     }
 
@@ -2006,6 +1982,30 @@
           el.classList.add('revealed');
         }
       });
+    }
+
+    function initRevealObserver() {
+      const targets = document.querySelectorAll('.reveal, #coupleNames, #wedsText, #geoOrnament, #nikahCard, #countdown, #walimaCard, #closingDua, #closingTrans');
+
+      if (!('IntersectionObserver' in window)) {
+        checkReveal();
+        window.addEventListener('scroll', checkReveal, { passive: true });
+        return;
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        });
+      }, {
+        root: null,
+        threshold: 0,
+        rootMargin: '0px 0px -12% 0px',
+      });
+
+      targets.forEach(el => observer.observe(el));
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -2257,119 +2257,7 @@
       setCorner('walimaBR', walimaCorners.br);
     }
 
-    // ═══════════════════════════════════════════════════════════
-    // CONTROLLED SCROLL
-    // ═══════════════════════════════════════════════════════════
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const controlledScroll = {
-      enabled: !reduceMotion,
-      target: window.scrollY,
-      current: window.scrollY,
-      touchY: 0,
-      raf: null,
-      ease: 0.12,
-    };
-
-    function maxPageScroll() {
-      return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    }
-
-    function clampScroll(value) {
-      return Math.max(0, Math.min(value, maxPageScroll()));
-    }
-
-    function startControlledScroll() {
-      if (controlledScroll.raf) return;
-      controlledScroll.raf = requestAnimationFrame(runControlledScroll);
-    }
-
-    function runControlledScroll() {
-      controlledScroll.current += (controlledScroll.target - controlledScroll.current) * controlledScroll.ease;
-
-      if (Math.abs(controlledScroll.target - controlledScroll.current) < 0.5) {
-        controlledScroll.current = controlledScroll.target;
-      }
-
-      window.scrollTo(0, controlledScroll.current);
-
-      if (controlledScroll.current !== controlledScroll.target) {
-        controlledScroll.raf = requestAnimationFrame(runControlledScroll);
-      } else {
-        controlledScroll.raf = null;
-      }
-    }
-
-    function setControlledScrollTarget(value) {
-      controlledScroll.target = clampScroll(value);
-      startControlledScroll();
-    }
-
-    function canControlUserScroll() {
-      return mainCont && mainCont.classList.contains('visible');
-    }
-
-    function initControlledScroll() {
-      if (!controlledScroll.enabled) return;
-
-      window.addEventListener('wheel', event => {
-        event.preventDefault();
-        if (!canControlUserScroll()) return;
-        setControlledScrollTarget(controlledScroll.target + event.deltaY);
-      }, { passive: false });
-
-      window.addEventListener('touchstart', event => {
-        if (event.touches.length !== 1) return;
-        controlledScroll.touchY = event.touches[0].clientY;
-        controlledScroll.current = window.scrollY;
-        controlledScroll.target = window.scrollY;
-      }, { passive: true });
-
-      window.addEventListener('touchmove', event => {
-        if (event.touches.length !== 1) return;
-        event.preventDefault();
-        if (!canControlUserScroll()) return;
-        const nextY = event.touches[0].clientY;
-        const delta = controlledScroll.touchY - nextY;
-        controlledScroll.touchY = nextY;
-        setControlledScrollTarget(controlledScroll.target + delta * 1.25);
-      }, { passive: false });
-
-      window.addEventListener('keydown', event => {
-        const tag = document.activeElement && document.activeElement.tagName;
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-
-        const keyScroll = {
-          ArrowDown: 70,
-          ArrowUp: -70,
-          PageDown: window.innerHeight * 0.85,
-          PageUp: -window.innerHeight * 0.85,
-          Home: -maxPageScroll(),
-          End: maxPageScroll(),
-          Space: event.shiftKey ? -window.innerHeight * 0.85 : window.innerHeight * 0.85,
-        }[event.code];
-
-        if (keyScroll === undefined) return;
-        event.preventDefault();
-        if (!canControlUserScroll()) return;
-
-        if (event.code === 'Home') {
-          setControlledScrollTarget(0);
-        } else if (event.code === 'End') {
-          setControlledScrollTarget(maxPageScroll());
-        } else {
-          setControlledScrollTarget(controlledScroll.target + keyScroll);
-        }
-      });
-
-      window.addEventListener('scroll', () => {
-        if (controlledScroll.raf) return;
-        controlledScroll.current = window.scrollY;
-        controlledScroll.target = window.scrollY;
-      }, { passive: true });
-    }
-
     // Run on load
-    initControlledScroll();
     buildCornerBokeh();
     // Set initial cream bg so flash doesn't occur on reveal
     skyBg.style.background = `linear-gradient(180deg, #F5EDE0 0%, #EDD9C0 100%)`;
@@ -2378,11 +2266,16 @@
     const flower = document.getElementById('flowerScroll');
     const union = document.getElementById('names-section');
     const flowerStopProgress = 160.5 / 360;
+    let flowerStartTop = union ? union.offsetTop : 1;
+
+    function updateFlowerMetrics() {
+      flowerStartTop = union ? union.offsetTop || 1 : 1;
+    }
 
     function updateFlowerScroll(scrollTop) {
       if (!flower || !union) return;
-      const p = Math.min(scrollTop / union.offsetTop, flowerStopProgress);
-      flower.style.transform = `translate(-50%, ${p * 360}px) scale(${1 - p * 0.15})`;
+      const p = Math.min(scrollTop / flowerStartTop, flowerStopProgress);
+      flower.style.transform = `translate3d(-50%, ${p * 360}px, 0) scale(${1 - p * 0.15})`;
       flower.style.opacity = 1 - p;
     }
   </script>

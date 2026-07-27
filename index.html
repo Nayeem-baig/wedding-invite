@@ -1732,7 +1732,7 @@
       return Math.max(0, Math.min(absoluteTop - offset, maxScroll));
     }
 
-    function animateScrollTo(targetY, duration = 1600) {
+    function animateScrollTo(targetY, duration = 700) {
       return new Promise(resolve => {
         if (autoGuideCancelled) {
           resolve(false);
@@ -2265,14 +2265,14 @@
         title = 'Nayeem weds Sadiya — Nikah';
         start = '20260925T161500';
         end = '20260925T180000';
-        location = 'Masjid-e-Mohammadi';
+        location = 'Masjid-e-Mohammadi, Sarjapura.';
         description = 'Nikah ceremony of Nayeem Baig and Sadiya Fathima. Post Asr prayer, jamaat at 4:15 PM.';
       } else {
         title = 'Nayeem weds Sadiya — Walima';
         start = '20260926T193000';
         end = '20260926T230000';
         location = 'R N Paradise Function Hall';
-        description = 'Walima celebration of Nayeem Baig and Sadiya Fathima. 7:30 PM onwards.';
+        description = 'Walima celebration of Nayeem Baig and Sadiya Fathima. Dinner 8:00 PM onwards.';
       }
 
       const gcal = `https://www.google.com/calendar/render?action=TEMPLATE`

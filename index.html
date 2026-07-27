@@ -1732,7 +1732,7 @@
       return Math.max(0, Math.min(absoluteTop - offset, maxScroll));
     }
 
-    function animateScrollTo(targetY, duration = 700) {
+    function animateScrollTo(targetY, duration = 1600) {
       return new Promise(resolve => {
         if (autoGuideCancelled) {
           resolve(false);
@@ -1783,12 +1783,12 @@
         window.addEventListener(eventName, onUserInterrupt, { passive: true, once: true });
       });
 
-      await waitForGuide(3000);
+      await waitForGuide(1800);
       for (const target of autoGuideTargets) {
         if (autoGuideCancelled) break;
         const completed = await animateScrollTo(getGuideTargetY(target));
         if (!completed || autoGuideCancelled) break;
-        await waitForGuide(3000);
+        await waitForGuide(2000);
       }
 
       autoGuideActive = false;
